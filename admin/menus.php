@@ -6,17 +6,17 @@ function ms_render_menus_tab() {
         'primeros_1'       => 'Primeros 1',
         'primeros_2'       => 'Primeros 2',
         'primeros_3'       => 'Primeros 3',
-	'primeros_4'       => 'Primeros 4',
-	'primeros_5'       => 'Primeros 5',
+		'primeros_4'       => 'Primeros 4',
+		'primeros_5'       => 'Primeros 5',
         'segundos_carne'   => 'Segundos Carne',
         'segundos_pescado' => 'Segundos Pescado',
         'segundos_otros'   => 'Segundos Otros',
-	'segundos_otros_1'   => 'Segundos Otros 1',
-	'segundos_otros_2'   => 'Segundos Otros 2',
+		'segundos_otros_1'   => 'Segundos Otros 1',
+		'segundos_otros_2'   => 'Segundos Otros 2',
         'postres_1'        => 'Postres 1',
         'postres_2'        => 'Postres 2',
         'postres_3'        => 'Postres 3',
-	'postres_4'        => 'Postres 4',
+		'postres_4'        => 'Postres 4',
     ];
 
     $menus = ms_get_menus_data();
