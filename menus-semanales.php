@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Menús Semanales
  * Description: Herramienta para la subida y gestión de los menús semanales de Casa Macario.
- * Version: 2.7
+ * Version: 2.8
  * Author: <a href="https://premiero.es">Premiero</a>
  */
 

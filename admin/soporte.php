@@ -28,7 +28,6 @@ function ms_render_soporte_tab() {
 
     echo '<p><strong>¿Necesitas soporte?</strong> Puedes contactarnos a través de:</p>';
     echo '<ul>';
-    echo '<li>📞 <a href="tel:+34684774365">+34 684 774 365</a></li>';
     echo '<li>📧 <a href="mailto:hola@premiero.es">hola@premiero.es</a></li>';
     echo '<li>💬 <a href="https://wa.me/34684774365" target="_blank" class="button button-primary">Enviar mensaje por WhatsApp</a></li>';
     echo '</ul>';

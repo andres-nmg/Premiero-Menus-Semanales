@@ -3,9 +3,9 @@
 function ms_render_configuracion_tab() {
     $menus = ms_get_menus_data();
     $total_menus = count($menus);
-	
-	echo '<div class="wrap">';
-	echo '<div class="ms-header">';
+
+    echo '<div class="wrap">';
+    echo '<div class="ms-header">';
     echo '<h1>Menús Semanales - Casa Macario</h1>';
     echo '<img src="' . plugin_dir_url(__FILE__) . '../img/logo-premiero.png" alt="Logo Premiero">';
     echo '</div>';
@@ -22,6 +22,22 @@ function ms_render_configuracion_tab() {
     $hoy = date('Y-m-d');
     $inicio = strtotime('monday this week');
 
+    // Guardar cambios manuales
+    if (isset($_POST['guardar_calendario']) && isset($_POST['calendario'])) {
+        $nuevo_calendario = [];
+        foreach ($_POST['calendario'] as $fecha => $semana_id) {
+            $fecha = sanitize_text_field($fecha);
+            $semana_id = sanitize_text_field($semana_id);
+            if (isset($menus[$semana_id])) {
+                $nuevo_calendario[$fecha] = $semana_id;
+            }
+        }
+        update_option('ms_menu_calendar', $nuevo_calendario);
+        $calendario = $nuevo_calendario;
+        echo '<div class="updated"><p>Calendario actualizado correctamente.</p></div>';
+    }
+
+    // Regenerar calendario desde esta semana
     if (isset($_POST['regenerar_calendario'])) {
         $calendario = [];
         for ($i = 0; $i < 12; $i++) {
@@ -33,6 +49,7 @@ function ms_render_configuracion_tab() {
         echo '<div class="updated"><p>Calendario regenerado a partir de esta semana.</p></div>';
     }
 
+    // Autocompletar futuras si hay menos de 12 semanas
     $fechas_futuras = array_filter(array_keys($calendario), function($fecha) use ($hoy) {
         return $fecha >= $hoy;
     });
@@ -50,42 +67,33 @@ function ms_render_configuracion_tab() {
         update_option('ms_menu_calendar', $calendario);
     }
 
-    if (isset($_POST['guardar_calendario']) && isset($_POST['calendario'])) {
-        $nuevo_calendario = [];
-        foreach ($_POST['calendario'] as $fecha => $semana_id) {
-            $fecha = sanitize_text_field($fecha);
-            $semana_id = sanitize_text_field($semana_id);
-            $nuevo_calendario[$fecha] = $semana_id;
-        }
-        update_option('ms_menu_calendar', $nuevo_calendario);
-        echo '<div class="updated"><p>Calendario actualizado correctamente.</p></div>';
-        $calendario = $nuevo_calendario;
-    }
-
-    echo '<form method="post" style="margin-bottom: 20px;">';
-    echo '<input type="submit" name="regenerar_calendario" class="button" value="🔁 Regenerar calendario desde esta semana">';
-    echo '</form>';
-
+    // Formulario
     echo '<form method="post">';
-    echo '<table class="widefat striped"><thead><tr><th>Semana</th><th>Menú asignado</th></tr></thead><tbody>';
+    echo '<table class="widefat striped" style="max-width: 600px;">';
+    echo '<thead><tr><th style="width:150px;">Semana</th><th>Menú asignado</th></tr></thead><tbody>';
 
     ksort($calendario);
     foreach ($calendario as $fecha => $semana_id) {
         echo '<tr>';
-        echo "<td><strong>" . date('d/m/Y', strtotime($fecha)) . "</strong></td>";
+        echo '<td>' . esc_html($fecha) . '</td>';
         echo '<td>';
-        echo "<select name='calendario[" . esc_attr($fecha) . "]'>";
-        foreach ($menus as $id => $data) {
-            $selected = ($id === $semana_id) ? 'selected' : '';
-            echo "<option value='$id' $selected>" . ucfirst(str_replace('_', ' ', $id)) . "</option>";
+        echo '<select name="calendario[' . esc_attr($fecha) . ']">';
+        foreach ($menus as $clave => $_) {
+            $selected = ($clave === $semana_id) ? 'selected' : '';
+            echo '<option value="' . esc_attr($clave) . '" ' . $selected . '>' . ucfirst(str_replace('_', ' ', $clave)) . '</option>';
         }
         echo '</select>';
-        echo '</td></tr>';
+        echo '</td>';
+        echo '</tr>';
     }
 
-    echo '</tbody></table><br>';
-    echo '<input type="submit" name="guardar_calendario' . "' class='button button-primary' value='Guardar cambios'>";
+    echo '</tbody></table>';
+    echo '<p style="margin-top: 20px;">';
+    echo '<button type="submit" name="guardar_calendario" class="button button-primary">💾 Guardar cambios</button> ';
+    echo '<button type="submit" name="regenerar_calendario" class="button">🔄 Regenerar calendario desde esta semana</button>';
+    echo '</p>';
     echo '</form>';
-    echo '</div>'; // cierre .ms-box
-    echo '</div>'; // cierre .wrap
+
+    echo '</div>'; // .ms-box
+    echo '</div>'; // .wrap
 }
