@@ -25,7 +25,7 @@ jobs:
           RELEASE_TAG: ${{ github.event.release.tag_name }}
         run: |
           RELEASE_VERSION="${RELEASE_TAG#v}"
-          PLUGIN_VERSION="$(sed -nE 's/^[[:space:]]*\\*[[:space:]]*Version:[[:space:]]*([^[:space:]]+).*/\\1/p' premiero-menus-semanales.php | head -n 1)"
+          PLUGIN_VERSION="$(awk '$2 == "Version:" { print $3; exit }' premiero-menus-semanales.php)"
           PACKAGE_ROOT="${RUNNER_TEMP}/premiero-package"
           PLUGIN_DIR="${PACKAGE_ROOT}/premiero-menus-semanales"
 
@@ -34,8 +34,18 @@ jobs:
             exit 1
           fi
 
+          if [[ -z "${PLUGIN_VERSION}" ]]; then
+            echo "No se pudo leer la versión de premiero-menus-semanales.php."
+            exit 1
+          fi
+
           if [[ "${PLUGIN_VERSION}" != "${RELEASE_VERSION}" ]]; then
             echo "La etiqueta ${RELEASE_TAG} no coincide con Version: ${PLUGIN_VERSION}."
+            exit 1
+          fi
+
+          if [[ -f menus-semanales.php ]]; then
+            echo "El repositorio todavía contiene el archivo antiguo menus-semanales.php. Elimínalo antes de publicar la Release."
             exit 1
           fi
 
