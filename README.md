@@ -52,7 +52,7 @@ Los shortcodes anteriores siguen disponibles por compatibilidad.
 1. Actualiza `Version` y `PMS_VERSION` en `premiero-menus-semanales.php`.
 2. Actualiza `Stable tag` y el registro de cambios de `readme.txt`.
 3. Sube los cambios a la rama `main`.
-4. Crea una etiqueta y una Release con el mismo número, por ejemplo `v3.0.0`.
+4. Crea una etiqueta y una Release con el mismo número, por ejemplo `v3.0.1`.
 5. GitHub Actions generará y adjuntará automáticamente `premiero-menus-semanales.zip`.
 
 El actualizador requiere el ZIP generado por el workflow. Los archivos automáticos «Source code» de GitHub no garantizan la estructura de carpeta que WordPress necesita.

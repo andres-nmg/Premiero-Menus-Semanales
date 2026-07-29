@@ -3,7 +3,7 @@ Contributors: andres-nmg
 Tags: menus, restaurant, calendar, shortcode, weekly
 Requires at least: 5.8
 Requires PHP: 7.4
-Stable tag: 3.0.0
+Stable tag: 3.0.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -52,6 +52,12 @@ Se recomienda `[menu_semanal]`. También admite `vista="hoy"`, `vista="fin_seman
 WordPress consulta la última Release estable del repositorio público. Cuando existe una versión superior y la Release incluye el ZIP instalable, aparece como una actualización normal.
 
 == Changelog ==
+
+= 3.0.1 =
+
+* Corregida la generación del paquete instalable mediante GitHub Actions.
+* Mejorada la lectura y validación de la versión al publicar una Release.
+* Añadida una comprobación que impide incluir el archivo principal de la versión 2.8.
 
 = 3.0.0 =
 

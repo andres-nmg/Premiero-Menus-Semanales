@@ -3,7 +3,7 @@
  * Plugin Name: Premiero Menús Semanales
  * Plugin URI: https://github.com/andres-nmg/premiero-menus-semanales/
  * Description: Crea, organiza y muestra menús semanales con calendario, estilos y shortcodes configurables.
- * Version: 3.0.0
+ * Version: 3.0.1
  * Requires at least: 5.8
  * Requires PHP: 7.4
  * Author: Premiero
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'PMS_VERSION', '3.0.0' );
+define( 'PMS_VERSION', '3.0.1' );
 define( 'PMS_PLUGIN_FILE', __FILE__ );
 define( 'PMS_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'PMS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
